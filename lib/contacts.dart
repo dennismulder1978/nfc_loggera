@@ -1,12 +1,10 @@
-import 'dart:ui';
+//import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'items.dart';
-//import 'package:flutter_nfc_reader/flutter_nfc_reader.dart';
-
-void screen2() => runApp(SocialContacts());
-
+//import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'Constants.dart';
 
 class SocialContacts extends StatefulWidget {
   @override
@@ -16,10 +14,7 @@ class SocialContacts extends StatefulWidget {
 class _SocialContactsState extends State<SocialContacts> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(fontFamily: 'SourceSansPro'),
-      home: new Scaffold(
-        backgroundColor: Colors.white,
+    return Scaffold(
         appBar: AppBar(
           title: Container(
             padding: EdgeInsets.only(left: 5),
@@ -27,50 +22,41 @@ class _SocialContactsState extends State<SocialContacts> {
               child: Padding(
                 padding: const EdgeInsets.only(right: 70.0),
                 child: Text('Sociale kaart',
-                    style: TextStyle(
-                        letterSpacing: 1.0,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                        color: Colors.white)),
+                    ),
               ),
             ),
           ),
-          backgroundColor: Colors.teal,
+
         ),
         drawer: new Drawer(
           child: new ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
-              new Container(
+              Container(
                 padding: EdgeInsets.only(left: 30, top: 10),
                 height: 100,
-                color: Colors.teal,
-                child: new DrawerHeader(
+                color: kKleurAchterHeaderTekst,
+                child: DrawerHeader(
                   child: Text(
                     'Instellingen',
-                    style: TextStyle(
-                        letterSpacing: 1.8,
-                        fontFamily: 'SourceSansPro',
-                        fontWeight: FontWeight.w700,
-                        fontSize: 22,
-                        color: Colors.white),
+                    style: kStyleVoorDrawerHeaderTekst,
                   ),
                 ),
               ),
               ListTile(
-                title: listFunction(color: Colors.green[900], icon: Icons.contacts, listNaam: 'Contact toevoegen'),
+                title: ListFunction(iconKleur: Colors.green[900], icon: Icons.contacts, listNaam: 'Contact toevoegen'),
                 onTap: () {
                   // actie
                 },
               ),
               ListTile(
-                title: listFunction(color: Colors.blue[900], icon: Icons.contacts, listNaam: 'Contact wijzigen//'),
+                title: ListFunction(iconKleur: Colors.blue[900], icon: Icons.contacts, listNaam: 'Contact wijzigen'),
                 onTap: () {
                   // actie
                 },
               ),
               ListTile(
-                title: listFunction(color: Colors.red[900], icon: Icons.contacts, listNaam: 'Contact (de)activeren'),
+                title: ListFunction(iconKleur: Colors.red[900], icon: Icons.contacts, listNaam: 'Contact (de)activeren'),
                 onTap: () {
                   // actie
                 },
@@ -79,27 +65,41 @@ class _SocialContactsState extends State<SocialContacts> {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.orange[700],
-          highlightElevation: 6.0,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Icon(Icons.nfc, color: Colors.white, size: 22),
-        ),
+
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Center(child: Text('Test')),
-              // FlutterNfcReader.onTagDiscovered().listen(onData) {
-              //   print(onData.id);
-              //   print(onData.content);
-              //   }
+              KeyItemSocial(persoonName: 'Malle Babbe', persoonEmail: 'email', persoonTelefoonnummer: 522155, persoonWebSite: 'www.www.nl',),
+              KeyItemSocial(persoonName: 'Rooie Ronnie', persoonTelefoonnummer: 6561316, persoonWebSite: 'adkfkadngk', persoonEmail: 'askfn@ajsf.nl',),
             ],
           ),
         ),
-      ),
+
+
+        persistentFooterButtons:
+
+        <Widget>[
+          GestureDetector(
+            child: Icon(Icons.nfc, color: Colors.black, size: 50.0,),
+            onTap: (){
+              Navigator.popAndPushNamed(context, '/NFC');
+            },
+          ),
+          GestureDetector(
+            child: Icon(Icons.contacts, color: Colors.blue, size: 50.0,),
+            onTap: (){
+              Navigator.popAndPushNamed(context, '/SOCIAL');
+            },
+          ),
+          GestureDetector(
+            child: Icon(Icons.apps, color: Colors.black, size: 50.0,),
+            onTap: (){
+              Navigator.popAndPushNamed(context, '/CALCULATE');
+            },
+          ),
+        ],
+
     );
   }
 }

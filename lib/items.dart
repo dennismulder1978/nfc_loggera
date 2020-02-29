@@ -2,26 +2,16 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-//import 'contacts.dart';
-//import 'package:flutter_nfc_reader/flutter_nfc_reader.dart';
-
-//Future navigateToSubPage(context) async {
-//  Navigator.push(context, MaterialPageRoute(builder: (context) => contacts()));
-//}
+//import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
-class KeyItem extends StatefulWidget {
+class KeyItemNFC extends StatelessWidget {
   final String keyName;
   final String personName;
   final String timePast;
-  const KeyItem(this.keyName, this.personName, this.timePast);
+  KeyItemNFC(this.keyName, this.personName, this.timePast);
 
-  @override
-  _KeyItemState createState() => _KeyItemState();
-}
-
-class _KeyItemState extends State<KeyItem> {
-  Widget staatvanpersoon(personName) {
+  Widget staatVanPersoon(personName) {
     if (personName == 'Beschikbaar') {
       return Text(personName,
           style: TextStyle(
@@ -41,28 +31,23 @@ class _KeyItemState extends State<KeyItem> {
           new Container(
             height: 65,
             padding: EdgeInsets.fromLTRB(15, 12, 10, 10),
-            child: new Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                new Container(
-                  child: new Row(
+                 Container(
+                  child: Row(
                     children: <Widget>[
-                      new Container(
-                        child: new Text(
-                          widget.keyName,
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 1.1),
-                        ),
+                       Container(
+                        child: Text(
+                          keyName,
+                          style: TextStyle(fontSize: 15.0),
+                          ),
                       ),
-                      new Container(
+                       Container(
                         padding: EdgeInsets.only(left: 10, top: 4),
-                        child: Text('sinds ' + widget.timePast,
+                        child: Text('sinds ' + timePast,
                             textAlign: TextAlign.end,
                             style: TextStyle(
-                                color: Colors.black54,
                                 fontSize: 10,
                                 fontStyle: FontStyle.italic)),
                       ),
@@ -74,7 +59,7 @@ class _KeyItemState extends State<KeyItem> {
                   child: new Container(
                     padding: EdgeInsets.fromLTRB(4, 6, 0, 0),
                     child: Container(
-                      child: staatvanpersoon(widget.personName),
+                      child: staatVanPersoon(personName),
                     ),
                   ),
                 ),
@@ -91,15 +76,129 @@ class _KeyItemState extends State<KeyItem> {
   }
 }
 
-Container listFunction({color: Colors, icon: Icons, String listNaam}) {
-  return Container(
-    child: Row(
-      children: <Widget>[
-        Container(
-            padding: EdgeInsets.only(right: 7),
-            child: Icon(icon, color: color, size: 18)),
-        Text(listNaam, style: TextStyle(color: Colors.black54)),
-      ],
-    ),
-  );
+class KeyItemSocial extends StatelessWidget {
+  final String persoonName;
+  final String persoonEmail;
+  final int persoonTelefoonnummer;
+  final String persoonWebSite;
+  KeyItemSocial({@required this.persoonName, this.persoonEmail, this.persoonTelefoonnummer, this.persoonWebSite });
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Container(
+            //height: 65,
+            padding: EdgeInsets.fromLTRB(15, 12, 10, 10),
+            child: Container(
+              width: double.infinity,
+              child: Row(
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(persoonName, style: TextStyle(fontSize: 17.0),),
+                      Text(persoonEmail, style: TextStyle(fontSize: 13.0),),
+                      Text(persoonTelefoonnummer.toString(), style: TextStyle(fontSize: 13.0),),
+                      Text(persoonWebSite, style: TextStyle(fontSize: 13.0),),
+                    ],
+                  ),
+                  Container(
+                    alignment: Alignment.bottomRight,
+                    //color: Colors.brown,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child: GestureDetector(
+
+                            child: Icon(Icons.phone_forwarded, size: 40.0, color: Colors.green,),
+                            onTap: (){
+                              //actie
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child: GestureDetector(
+
+                            child: Icon(Icons.email, size: 40.0, color: Colors.blue[700],),
+                            onTap: (){
+                              //actie
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child: GestureDetector(
+
+                            child: Icon(Icons.web_asset, size: 40.0, color: Colors.red[800],),
+                            onTap: (){
+                              //actie
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+
+                ],
+              ),
+            ),
+          ),
+          Container(
+            color: Colors.black12,
+            height: 0.5,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ListFunction extends StatelessWidget {
+  final IconData icon;
+  final String listNaam;
+  final Color iconKleur;
+
+  ListFunction(
+      {@required this.icon, @required this.iconKleur, @required this.listNaam});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        children: <Widget>[
+          Container(
+              padding: EdgeInsets.only(right: 7),
+              child: Icon(icon, color: iconKleur, size: 18)),
+          Text(listNaam),
+        ],
+      ),
+    );
+  }
+}
+
+class BottomCare extends StatelessWidget {
+  final IconData icon;
+  final String location;
+  final Color bottomIcoonKleur;
+  final Function goToTheRightPlace;
+
+  BottomCare({@required this.icon, @required this.location, @required this.bottomIcoonKleur, @required this.goToTheRightPlace});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Icon(icon, color: bottomIcoonKleur, size: 50.0,),
+      onTap: (){
+        Navigator.popAndPushNamed(context, location);
+      },
+
+    );
+  }
 }
